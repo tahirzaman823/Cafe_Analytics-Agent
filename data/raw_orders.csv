@@ -1,0 +1,206 @@
+order_id,customer_name,item,quantity,price,order_date,payment_method,location
+1,Ayesha,Cappuccino,1,350,2026-02-05,Card,Gulshan Branch
+2,Sara,Cappuccino,3,1050,2026-03-11,Easypaisa,Gulshan Branch
+3,Ayesha,Espresso,1,250,2026-01-28,Cash,DHA Branch
+4,Faizan,Cold Brew,3,1200,2026-03-25,Easypaisa,Gulshan Branch
+5,Ali,Muffin,3,660,2026-02-05,Card,DHA Branch
+6,Hamza,Croissant,2,400,2026-02-05,Card,Clifton Branch
+7,Sara,Cappuccino,1,350,2026-02-18,JazzCash,Clifton Branch
+8,Faizan,Mocha,1,420,2026-02-28,Cash,Clifton Branch
+9,Noor,Cappuccino,3,1050,2026-02-07,JazzCash,DHA Branch
+10,Ali,Cold Brew,3,1200,2026-01-09,Card,Clifton Branch
+11,Usman,Cappuccino,1,350,2026-01-13,,Clifton Branch
+12,Zara,Americano,1,300,2026-02-17,Card,DHA Branch
+13,Sara,Mocha,3,1260,2026-03-29,Card,DHA Branch
+14,Usman,Cold Brew,1,400,2026-03-01,JazzCash,DHA Branch
+15,Ali,Cold Brew,3,1200,2026-02-11,Card,Gulshan Branch
+16,Sara,Americano,2,600,2026-02-04,Card,DHA Branch
+17,Mehak,Americano,1,300,2026-03-25,Easypaisa,DHA Branch
+18,Hamza,Muffin,1,220,2026-02-03,Card,DHA Branch
+19,Usman,Mocha,3,1260,2026-03-16,Easypaisa,Clifton Branch
+20,Mehak,Cold Brew,1,400,2026-03-07,Cash,Gulshan Branch
+21,Hamza,Cappuccino,1,350,2026-03-22,Easypaisa,DHA Branch
+22,Noor,Cappuccino,2,700,2026-02-18,Easypaisa,DHA Branch
+23,Sara,Mocha,3,1260,2026-01-02,JazzCash,DHA Branch
+24,Usman,Americano,1,300,2026-02-07,Card,Clifton Branch
+25,Faizan,Espresso,3,750,2026-02-03,Card,DHA Branch
+26,Faizan,Cappuccino,3,1050,2026-02-08,,Gulshan Branch
+27,Faizan,Americano,1,300,2026-03-11,Cash,DHA Branch
+28,Sara,Americano,2,600,2026-01-03,JazzCash,Clifton Branch
+29,Noor,Cold Brew,1,400,2026-01-31,Cash,Gulshan Branch
+30,Hamza,Muffin,1,220,2026-03-10,Card,DHA Branch
+31,Bilal,Muffin,3,660,2026-01-22,Easypaisa,Gulshan Branch
+32,Usman,Cold Brew,3,1200,2026-02-09,JazzCash,Clifton Branch
+33,Ayesha,Muffin,1,220,2026-02-01,Cash,Clifton Branch
+34,Ayesha,Espresso,3,750,2026-03-12,Card,Gulshan Branch
+35,Ali,Cappuccino,3,1050,2026-03-22,Card,Gulshan Branch
+36,Faizan,Espresso,2,500,2026-01-10,Card,Clifton Branch
+37,Hamza,Muffin,1,220,2026-03-11,Easypaisa,Gulshan Branch
+38,Sara,Muffin,2,440,2026-01-25,Cash,DHA Branch
+39,Usman,Croissant,2,400,2026-02-24,Easypaisa,DHA Branch
+40,Sara,Espresso,3,750,2026-03-25,Cash,Clifton Branch
+41,Ayesha,Americano,1,300,2026-02-01,Card,DHA Branch
+42,Hamza,Muffin,1,220,2026-02-24,JazzCash,Clifton Branch
+43,Faizan,Cold Brew,1,400,2026-02-26,Cash,Gulshan Branch
+44,Hamza,Espresso,1,250,2026-01-31,Easypaisa,Clifton Branch
+45,Ali,Muffin,1,220,2026-02-21,Card,Clifton Branch
+46,Mehak,Espresso,2,500,2026-02-03,JazzCash,Clifton Branch
+47,Bilal,Muffin,1,220,2026-01-25,Card,Gulshan Branch
+48,Ali,Espresso,3,750,2026-02-10,Cash,DHA Branch
+49,Hamza,Muffin,3,660,2026-03-09,Cash,DHA Branch
+50,Noor,Cappuccino,1,350,2026-01-09,Cash,DHA Branch
+51,Noor,Cold Brew,2,800,2026-01-16,Card,DHA Branch
+52,Usman,Espresso,3,750,2026-01-11,JazzCash,Clifton Branch
+53,Ayesha,Cold Brew,3,1200,2026-02-10,JazzCash,Clifton Branch
+54,Bilal,Latte,3,1140,2026-03-24,,Clifton Branch
+55,Noor,Cappuccino,1,350,2026-02-28,Cash,Gulshan Branch
+56,Hamza,Cold Brew,3,1200,2026-02-03,JazzCash,Gulshan Branch
+57,Hamza,Cold Brew,2,800,2026-02-06,Easypaisa,DHA Branch
+58,Faizan,Mocha,3,1260,2026-03-25,Cash,DHA Branch
+59,Hamza,Mocha,3,1260,2026-01-14,JazzCash,Gulshan Branch
+60,Hamza,Cappuccino,3,1050,2026-03-12,JazzCash,Clifton Branch
+61,Ayesha,Cold Brew,3,1200,2026-02-13,JazzCash,DHA Branch
+62,Sara,Muffin,2,440,2026-01-07,Easypaisa,Clifton Branch
+63,Hamza,Espresso,1,250,2026-02-12,JazzCash,Gulshan Branch
+64,Usman,Muffin,3,660,2026-04-01,Cash,Gulshan Branch
+65,Faizan,Cappuccino,3,1050,2026-01-20,Cash,Clifton Branch
+66,Ali,Latte,2,760,2026-01-17,JazzCash,Clifton Branch
+67,Ayesha,Espresso,2,500,2026-01-27,Cash,Clifton Branch
+68,Ayesha,Croissant,3,600,2026-01-20,Card,Gulshan Branch
+69,Zara,Croissant,1,200,2026-01-23,Easypaisa,DHA Branch
+70,Sara,Cold Brew,2,800,2026-01-21,Easypaisa,Gulshan Branch
+71,Mehak,Muffin,1,220,2026-01-26,JazzCash,Clifton Branch
+72,Ayesha,Cold Brew,1,400,2026-01-04,Easypaisa,Clifton Branch
+73,Zara,Mocha,1,420,2026-02-05,Easypaisa,DHA Branch
+74,Bilal,Americano,1,300,2026-01-15,Card,DHA Branch
+75,Noor,Mocha,1,420,2026-01-14,Easypaisa,Clifton Branch
+76,Faizan,Americano,2,600,2026-03-19,Cash,Clifton Branch
+77,Usman,Cold Brew,2,800,2026-01-06,Cash,DHA Branch
+78,Sara,Cold Brew,2,800,2026-02-25,JazzCash,DHA Branch
+79,Bilal,Americano,3,900,2026-01-16,JazzCash,DHA Branch
+80,Bilal,Croissant,2,400,2026-02-21,Card,Gulshan Branch
+81,Hamza,Croissant,3,600,2026-02-18,JazzCash,Clifton Branch
+82,Ayesha,Espresso,2,500,2026-02-06,Easypaisa,DHA Branch
+83,Mehak,Americano,2,600,2026-02-26,Card,DHA Branch
+84,Sara,Muffin,3,660,2026-01-22,JazzCash,DHA Branch
+85,Bilal,Americano,1,300,2026-01-31,,Gulshan Branch
+86,Ayesha,Latte,1,380,2026-01-06,Easypaisa,DHA Branch
+87,Noor,Cappuccino,2,700,2026-02-23,Card,DHA Branch
+88,Ayesha,Croissant,2,400,2026-02-21,Card,DHA Branch
+89,Ayesha,Espresso,1,250,2026-02-24,Card,DHA Branch
+90,Ayesha,Muffin,1,220,2026-03-13,Cash,Clifton Branch
+91,Faizan,Latte,2,760,2026-03-27,JazzCash,Clifton Branch
+92,Hamza,Croissant,3,600,2026-02-27,Easypaisa,Clifton Branch
+93,Bilal,Mocha,1,420,2026-03-23,Easypaisa,DHA Branch
+94,Sara,Cold Brew,2,800,2026-02-26,JazzCash,Gulshan Branch
+95,Faizan,Mocha,2,840,2026-02-10,Cash,Gulshan Branch
+96,Hamza,Latte,1,380,2026-02-19,Card,Gulshan Branch
+97,Faizan,Croissant,2,400,2026-02-12,Easypaisa,Clifton Branch
+98,Usman,Espresso,1,250,2026-02-23,Cash,DHA Branch
+99,Zara,Croissant,2,400,2026-01-01,JazzCash,Clifton Branch
+100,Noor,Croissant,3,600,2026-03-11,Card,Clifton Branch
+101,Mehak,Cold Brew,2,800,2026-02-25,,Clifton Branch
+102,Usman,Americano,3,900,2026-03-28,Card,Clifton Branch
+103,Ali,Latte,3,1140,2026-03-10,Easypaisa,DHA Branch
+104,Usman,Espresso,1,250,2026-03-24,Card,Clifton Branch
+105,Usman,Latte,1,380,2026-02-03,JazzCash,Gulshan Branch
+106,Usman,Muffin,2,440,2026-02-13,JazzCash,Clifton Branch
+107,Ali,Mocha,1,420,2026-03-02,Cash,Clifton Branch
+108,Ali,Cold Brew,3,1200,2026-01-09,Cash,Gulshan Branch
+109,Hamza,Cold Brew,1,400,2026-03-21,Card,Gulshan Branch
+110,Noor,Muffin,3,660,2026-01-15,Card,Clifton Branch
+111,Noor,Mocha,2,840,2026-01-22,Cash,Gulshan Branch
+112,Ali,Mocha,1,420,2026-03-16,JazzCash,DHA Branch
+113,Sara,Croissant,2,400,2026-01-26,Card,Gulshan Branch
+114,Sara,Mocha,3,1260,2026-03-18,Cash,Clifton Branch
+115,Sara,Croissant,3,600,2026-02-17,JazzCash,Gulshan Branch
+116,Usman,Croissant,2,400,2026-01-14,JazzCash,DHA Branch
+117,Usman,Muffin,3,660,2026-01-20,Card,DHA Branch
+118,Mehak,Mocha,3,1260,2026-03-10,Easypaisa,Clifton Branch
+119,Sara,Mocha,2,840,2026-02-01,JazzCash,Clifton Branch
+120,Noor,Cold Brew,2,800,2026-03-14,Easypaisa,Clifton Branch
+121,Hamza,Espresso,2,500,2026-02-11,Easypaisa,Gulshan Branch
+122,Bilal,Americano,2,600,2026-02-13,JazzCash,DHA Branch
+123,Sara,Espresso,3,750,2026-01-25,Card,DHA Branch
+124,Ayesha,Croissant,2,400,2026-03-13,Easypaisa,DHA Branch
+125,Sara,Muffin,2,440,2026-01-03,JazzCash,Gulshan Branch
+126,Bilal,Croissant,3,600,2026-02-01,JazzCash,Clifton Branch
+127,Zara,Americano,2,600,2026-03-12,JazzCash,DHA Branch
+128,Bilal,Muffin,2,440,2026-02-09,Card,Gulshan Branch
+129,Faizan,Cold Brew,2,800,2026-01-16,Card,Gulshan Branch
+130,Bilal,Cold Brew,3,1200,2026-03-03,JazzCash,Gulshan Branch
+131,Zara,Cold Brew,2,800,2026-01-30,Card,Clifton Branch
+132,Hamza,Espresso,3,750,2026-03-10,JazzCash,Gulshan Branch
+133,Hamza,Espresso,3,750,2026-02-07,Easypaisa,Gulshan Branch
+134,Mehak,Espresso,3,750,2026-02-06,Easypaisa,Clifton Branch
+135,Bilal,Americano,1,300,2026-01-07,Easypaisa,Gulshan Branch
+136,Sara,Cappuccino,2,700,2026-03-04,Cash,Gulshan Branch
+137,Sara,Latte,3,1140,2026-02-08,Card,Gulshan Branch
+138,Noor,Croissant,3,600,2026-03-18,Card,DHA Branch
+139,Bilal,Croissant,2,400,2026-02-26,Easypaisa,Clifton Branch
+140,Ayesha,Espresso,3,750,2026-01-13,Card,Clifton Branch
+141,Hamza,Cappuccino,1,350,2026-01-31,Cash,Gulshan Branch
+142,Noor,Espresso,2,500,2026-02-27,Easypaisa,Clifton Branch
+143,Bilal,Espresso,1,250,2026-02-06,Easypaisa,Gulshan Branch
+144,Noor,Cold Brew,2,800,2026-03-22,Card,Clifton Branch
+145,Hamza,Cappuccino,3,1050,2026-01-29,JazzCash,Gulshan Branch
+146,Bilal,Cappuccino,1,350,2026-01-22,JazzCash,Clifton Branch
+147,Bilal,Cappuccino,2,700,2026-03-30,Easypaisa,Clifton Branch
+148,Noor,Muffin,2,440,2026-01-11,Cash,Clifton Branch
+149,Ali,Americano,3,900,2026-02-02,Cash,Gulshan Branch
+150,Noor,Espresso,3,750,2026-02-04,Cash,Gulshan Branch
+151,Mehak,Muffin,3,660,2026-03-25,JazzCash,Gulshan Branch
+152,Sara,Croissant,3,600,2026-03-04,Easypaisa,Clifton Branch
+153,Sara,Croissant,2,400,2026-02-11,Card,Clifton Branch
+154,Bilal,Croissant,3,600,2026-03-05,Easypaisa,DHA Branch
+155,Zara,Espresso,2,500,2026-01-12,JazzCash,Clifton Branch
+156,Ali,Cappuccino,2,700,2026-03-07,Easypaisa,Clifton Branch
+157,Zara,Espresso,1,250,2026-03-08,Easypaisa,DHA Branch
+158,Bilal,Muffin,1,220,2026-01-27,Card,Clifton Branch
+159,Sara,Muffin,3,660,2026-03-04,Cash,DHA Branch
+160,Bilal,Cold Brew,3,1200,2026-01-21,Cash,DHA Branch
+161,Sara,Croissant,1,200,2026-01-29,Easypaisa,Gulshan Branch
+162,Faizan,Latte,2,760,2026-02-07,JazzCash,Clifton Branch
+163,Mehak,Muffin,2,440,2026-02-01,Card,Clifton Branch
+164,Hamza,Cold Brew,3,1200,2026-03-07,Cash,Clifton Branch
+165,Bilal,Croissant,2,400,2026-03-06,Cash,Clifton Branch
+166,Mehak,Mocha,3,1260,2026-03-16,Card,Clifton Branch
+167,Faizan,Muffin,2,440,2026-02-12,Easypaisa,Clifton Branch
+168,Ayesha,Americano,1,300,2026-03-31,Easypaisa,Gulshan Branch
+169,Mehak,Croissant,1,200,2026-02-10,Easypaisa,Clifton Branch
+170,Hamza,Latte,2,760,2026-01-05,JazzCash,Gulshan Branch
+171,Mehak,Muffin,1,220,2026-03-09,Cash,DHA Branch
+172,Hamza,Latte,2,760,2026-03-25,Cash,Clifton Branch
+173,Usman,Mocha,2,840,2026-03-21,Cash,Clifton Branch
+174,Mehak,Croissant,2,400,2026-03-22,Cash,DHA Branch
+175,Bilal,Cappuccino,1,350,2026-03-22,Card,DHA Branch
+176,Sara,Cappuccino,2,700,2026-01-13,Easypaisa,Gulshan Branch
+177,Zara,Mocha,1,420,2026-01-06,Cash,Clifton Branch
+178,Hamza,Americano,2,600,2026-02-25,Card,DHA Branch
+179,Hamza,Croissant,3,600,2026-03-29,Card,Gulshan Branch
+180,Noor,Cappuccino,3,1050,2026-02-18,Card,Clifton Branch
+181,Bilal,Latte,1,380,2026-03-01,Easypaisa,Clifton Branch
+182,Faizan,Espresso,2,500,2026-02-06,Card,Gulshan Branch
+183,Bilal,Muffin,2,440,2026-03-17,Easypaisa,DHA Branch
+184,Ayesha,Mocha,2,840,2026-02-08,Easypaisa,Clifton Branch
+185,Noor,Cappuccino,1,350,2026-02-18,JazzCash,DHA Branch
+186,Ali,Mocha,3,1260,2026-02-07,Easypaisa,Clifton Branch
+187,Ali,Espresso,3,750,2026-03-29,Easypaisa,Clifton Branch
+188,Ayesha,Cold Brew,3,1200,2026-02-15,Card,DHA Branch
+189,Hamza,Mocha,3,1260,2026-03-26,Cash,DHA Branch
+190,Ali,Espresso,2,500,2026-02-26,JazzCash,DHA Branch
+191,Zara,Latte,1,380,2026-02-07,Easypaisa,Gulshan Branch
+192,Zara,Cold Brew,1,400,2026-03-11,JazzCash,Gulshan Branch
+193,Zara,Mocha,2,840,2026-02-07,Cash,Clifton Branch
+194,Usman,Cappuccino,1,350,2026-01-29,JazzCash,Gulshan Branch
+195,Faizan,Croissant,1,200,2026-02-03,Cash,Clifton Branch
+196,Bilal,Americano,3,900,2026-03-28,,DHA Branch
+197,Ayesha,Americano,1,300,2026-03-28,Easypaisa,Gulshan Branch
+198,Sara,Americano,3,900,2026-01-29,Easypaisa,DHA Branch
+199,Sara,Mocha,3,1260,2026-02-22,Card,Gulshan Branch
+200,Sara,Espresso,2,500,2026-03-05,Cash,Gulshan Branch
+59,Hamza,Mocha,3,1260,2026-01-14,JazzCash,Gulshan Branch
+41,Ayesha,Americano,1,300,2026-02-01,Card,DHA Branch
+35,Ali,Cappuccino,3,1050,2026-03-22,Card,Gulshan Branch
+103,Ali,Latte,3,1140,2026-03-10,Easypaisa,DHA Branch
+185,Noor,Cappuccino,1,350,2026-02-18,JazzCash,DHA Branch

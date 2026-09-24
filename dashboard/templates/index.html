@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cafe Analytics — Ask in Plain English</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #f5f5f5; }
+        h1 { color: #4b2e1e; }
+        input[type=text] { width: 70%; padding: 10px; font-size: 16px; }
+        button { padding: 10px 20px; font-size: 16px; background: #6f4e37; color: white; border: none; cursor: pointer; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; background: white; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #eee; }
+        .sql-box { background: #222; color: #0f0; padding: 10px; font-family: monospace; margin-top: 10px; white-space: pre-wrap; }
+        .attempt { background: white; padding: 10px; margin: 5px 0; border-left: 4px solid #ccc; }
+        .attempt.valid { border-left-color: green; }
+        .attempt.invalid { border-left-color: red; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>☕ Cafe Analytics — Ask in Plain English</h1>
+    <p>Koi bhi sawaal poocho apne coffee shop ke data ke baare mein, SQL likhne ki zaroorat nahi.</p>
+
+    <form method="POST">
+        <input type="text" name="question" placeholder="e.g. Which item made the most revenue?" value="{{ question }}">
+        <button type="submit">Ask</button>
+    </form>
+
+    {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+    {% endif %}
+
+    {% if attempt_log %}
+        <h3>Correction Trace ({{ attempt_log|length }} attempt(s))</h3>
+        {% for entry in attempt_log %}
+            <div class="attempt {{ 'valid' if entry.is_valid else 'invalid' }}">
+                <strong>Attempt {{ entry.attempt }}</strong> — {{ 'Valid ✅' if entry.is_valid else 'Invalid ❌' }}
+                <div class="sql-box">{{ entry.sql }}</div>
+                {% if entry.error %}
+                    <p><em>Error: {{ entry.error }}</em></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if result_data %}
+        <h3>Final SQL (used {{ result_data.attempts_used }} attempt(s))</h3>
+        <div class="sql-box">{{ result_data.sql }}</div>
+
+        <h3>Result</h3>
+        <table>
+            <tr>
+                {% for col in result_data.columns %}
+                    <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+            {% for row in result_data.rows %}
+                <tr>
+                    {% for value in row %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>

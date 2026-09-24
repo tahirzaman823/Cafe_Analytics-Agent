@@ -23,6 +23,15 @@ The interesting part isn't the final answer — it's watching the system reason 
 
 ---
 
+ 
+## Project Interface
+ 
+<p align="center">
+  <img src="assets/dashboard-screenshot.png" alt="Cafe Analytics dashboard — question asked, one-attempt correction trace, final SQL, and result" width="520">
+</p>
+
+---
+
 ## Architecture
 
 The project follows a **Medallion Architecture**: data moves through three progressively cleaner and more useful layers, with each layer preserved separately so nothing is ever silently overwritten.

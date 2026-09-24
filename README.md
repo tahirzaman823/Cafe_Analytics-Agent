@@ -1,543 +1,210 @@
 # ☕ Cafe Analytics Agent
 
-A beginner-friendly analytics system designed to demonstrate how a real-world data analytics workflow works in the background.
+**Ask your business data questions in plain English — no SQL required.**
 
-The project allows cafe data to move through a structured data pipeline and eventually enables users to ask questions in natural language and receive analytics results.
+Cafe Analytics Agent is a small, self-contained analytics system built to demonstrate — in practice — how a self-correcting Text-to-SQL pipeline works end to end: from raw, messy transaction data all the way to a validated SQL query and a business-ready answer, surfaced through a web dashboard.
 
-The main purpose is to **understand the complete workflow**, not simply build a final application.
-
----
-
-## 🎯 Project Goal
-
-The goal of **Cafe Analytics Agent** is to practically understand how different components of a modern data analytics system work together.
-
-The project demonstrates:
-
-- Data ingestion
-- Data cleaning
-- Data transformation
-- Medallion Architecture
-- Data storage
-- SQL analytics
-- Natural-language questions
-- Local LLM usage
-- Text-to-SQL
-- SQL validation
-- Self-correction
-- Result generation
+It was built as a hands-on learning project to internalize the concepts behind a larger research proposal ([FoodSQL-Agent](#background--motivation)) before scaling the same architecture up to a full food-delivery analytics system.
 
 ---
 
-# 🔄 Overall Workflow
+## What This Project Actually Does
 
-The planned system will follow this workflow:
+Instead of a business user writing SQL to answer questions like *"Which item made the most revenue?"*, they simply type the question in plain English. Behind the scenes, the system:
 
-```text
-Cafe Data
-    ↓
-🥉 Bronze Layer
-    ↓
-🥈 Silver Layer
-    ↓
-🥇 Gold Layer
-    ↓
-DuckDB
-    ↓
-Natural Language Question
-    ↓
-Llama 3.2
-    ↓
-SQL Query
-    ↓
-SQL Validation
-    ↓
-Self-Correction
-    ↓
-Analytics Result
-    ↓
-User
+1. Takes raw, unclean transaction data and turns it into trustworthy, analysis-ready tables through a layered cleaning pipeline.
+2. Converts the user's natural-language question into a SQL query using a locally-run language model, guided by the database's schema.
+3. Validates that query against the database *before* running it, catching mistakes early.
+4. If the query is invalid, feeds the exact error back to the model and asks it to correct itself — retrying up to three times.
+5. Executes the final, validated query and returns the answer, along with a full trace of every attempt it took to get there.
+6. Displays all of this — the question, the correction attempts, the final SQL, and the result — on a simple web page.
+
+The interesting part isn't the final answer — it's watching the system reason through its own mistakes and fix them.
+
+---
+
+## Architecture
+
+The project follows a **Medallion Architecture**: data moves through three progressively cleaner and more useful layers, with each layer preserved separately so nothing is ever silently overwritten.
+
 ```
-
----
-
-# 🏗️ Medallion Architecture
-
-The project uses a simplified **Medallion Architecture** consisting of three layers.
-
-```text
-             Cafe Data
-                 │
-                 ▼
-        ┌─────────────────┐
-        │  🥉 Bronze      │
-        │   Raw Data      │
-        └────────┬────────┘
-                 │
-                 ▼
-        ┌─────────────────┐
-        │  🥈 Silver      │
-        │  Clean Data     │
-        └────────┬────────┘
-                 │
-                 ▼
-        ┌─────────────────┐
-        │  🥇 Gold        │
-        │ Analytics Data  │
-        └────────┬────────┘
-                 │
-                 ▼
-              DuckDB
-```
-
-## 🥉 Bronze Layer
-
-The Bronze layer stores the original/raw cafe data.
-
-Example:
-
-```text
-CSV
- ↓
-Bronze
- ↓
-Raw Data
-```
-
-The purpose is to preserve the source data before major transformations.
-
----
-
-## 🥈 Silver Layer
-
-The Silver layer contains cleaned and validated data.
-
-Possible operations include:
-
-- Removing duplicate records
-- Handling basic data-quality issues
-- Validating data types
-- Standardizing data
-- Handling missing values
-
-Workflow:
-
-```text
-Bronze
-   ↓
-Cleaning & Validation
-   ↓
-Silver
+Raw CSV (synthetic coffee shop orders)
+        │
+        ▼
+┌───────────────┐   Data is stored exactly as received,
+│  Bronze Layer │   with source and load-time metadata attached.
+└───────────────┘   Nothing is cleaned or changed here.
+        │
+        ▼
+┌───────────────┐   Duplicates are removed, missing values are
+│  Silver Layer │   handled explicitly, and data types are validated
+└───────────────┘   so downstream calculations can be trusted.
+        │
+        ▼
+┌───────────────┐   Clean data is pre-aggregated into business-ready
+│  Gold Layer   │   summary views (revenue by item, by location, by day)
+└───────────────┘   so questions can be answered quickly and simply.
+        │
+        ▼
+┌─────────────────────────────────────────────┐
+│  Text-to-SQL Agent (runs on the Gold layer)  │
+│                                               │
+│  Question → Generate SQL → Validate (dry-run)│
+│      ▲                          │            │
+│      └── Correct on error ──────┘            │
+│          (max 3 attempts)                    │
+└─────────────────────────────────────────────┘
+        │
+        ▼
+   Flask Dashboard (question in → answer + trace out)
 ```
 
 ---
 
-## 🥇 Gold Layer
+## Key Capabilities
 
-The Gold layer contains analytics-ready data.
-
-For example:
-
-```text
-Cafe
-Total Orders
-Total Revenue
-Average Order Value
-Popular Products
-```
-
-The Gold layer is designed to make business analytics easier.
-
-```text
-Silver
-   ↓
-Business Transformation
-   ↓
-Gold
-```
+- **Layered data cleaning pipeline** — raw data is never modified in place; each stage produces its own clean, inspectable output, so any step can be traced back to its source.
+- **Schema-aware question answering** — the model is only ever shown the relevant table structure, keeping it focused and reducing the chance of it guessing at columns that don't exist.
+- **Pre-execution query validation** — every generated query is checked with a dry-run before it ever touches real data, so nothing invalid gets executed.
+- **Self-correction on failure** — when a query fails validation, the exact error is handed back to the model so it can fix its own mistake, rather than the system giving up or guessing blindly.
+- **Full attempt transparency** — every retry, every error, and the final working query are all visible, not hidden behind a single "here's your answer" response.
+- **Runs entirely locally** — the language model runs on-device, so there's no per-query API cost and no data leaves the machine.
 
 ---
 
-# 🤖 Local LLM
+## Project Structure
 
-## Ollama
-
-**Ollama** is used to run a language model locally on the computer.
-
-The project uses Ollama so that the language model can be accessed from the local development environment.
-
----
-
-## Llama 3.2
-
-The `llama3.2` model has been downloaded using:
-
-```bash
-ollama pull llama3.2
 ```
-
-The model will later be used to demonstrate:
-
-```text
-Natural Language
-       ↓
-      LLM
-       ↓
-      SQL
-```
-
-For example:
-
-```text
-User:
-Which cafe generated the highest revenue?
-```
-
-The system will eventually use the LLM to generate an SQL query that can be validated and executed against the analytics data.
-
----
-
-# 🗄️ Database & Analytics
-
-The project will use **DuckDB** as the analytical database.
-
-The planned workflow is:
-
-```text
-Gold Data
-    ↓
-DuckDB
-    ↓
-SQL Query
-    ↓
-Result
-```
-
-DuckDB will allow the system to execute analytical SQL queries on the prepared cafe data.
-
----
-
-# 🔍 SQL Validation
-
-Generated SQL should not simply be executed immediately.
-
-The planned workflow is:
-
-```text
-Generated SQL
-      ↓
-SQL Validation
-      ↓
-Is SQL valid?
-    /     \
-  YES      NO
-   ↓        ↓
-Execute   Error
-            ↓
-       Correction
-```
-
-This allows the system to identify SQL problems before producing the final result.
-
----
-
-# 🔁 Self-Correction
-
-One of the main concepts demonstrated by this project is **SQL self-correction**.
-
-The simplified workflow is:
-
-```text
-User Question
-      ↓
-Generate SQL
-      ↓
-Validate SQL
-      ↓
-   ┌──┴──┐
-   │     │
- Valid  Invalid
-   │     │
-   ↓     ↓
-Execute Error
-         ↓
-     Correction
-         ↓
-      New SQL
-         ↓
-      Validate
-```
-
-If the generated SQL contains an error, the error information can be used to generate a corrected query.
-
----
-
-# 📊 Example Questions
-
-The final system will be designed to answer questions such as:
-
-```text
-Which cafe generated the highest revenue?
-```
-
-```text
-What is the total revenue?
-```
-
-```text
-Which product was sold the most?
-```
-
-```text
-What was the average order value?
-```
-
-```text
-Which cafe had the highest number of orders?
-```
-
-These questions demonstrate how a user can interact with analytics data without manually writing SQL.
-
----
-
-# 🧩 Main Components
-
-| Component | Purpose |
-|---|---|
-| Python | Data processing and application logic |
-| Pandas | Data cleaning and transformation |
-| CSV | Initial raw data format |
-| Medallion Architecture | Organizing data into Bronze, Silver, and Gold |
-| Parquet | Structured data storage |
-| DuckDB | Analytical SQL database |
-| Ollama | Local LLM runtime |
-| Llama 3.2 | Natural-language processing / SQL generation |
-| SQL | Data querying |
-| Validator | Checking generated SQL |
-| Self-Correction | Repairing invalid SQL |
-| Backend | Connecting components |
-| Frontend | User interaction |
-
----
-
-# 📁 Planned Project Structure
-
-```text
-cafe-analytics-agent/
-│
+Cafe_Analytics-Agent/
 ├── data/
-│   ├── raw/
-│   ├── silver/
-│   └── gold/
-│
-├── src/
-│   ├── generate_data.py
-│   ├── bronze.py
-│   ├── silver.py
-│   ├── gold.py
-│   ├── database.py
-│   ├── text_to_sql.py
-│   ├── validator.py
-│   └── correction.py
-│
-├── app/
-│   ├── backend/
-│   └── frontend/
-│
-├── requirements.txt
+│   ├── raw_orders.csv          # Synthetic raw transaction data
+│   └── cafe_analytics.duckdb   # Bronze / Silver / Gold tables
+├── scripts/
+│   ├── generate_data.py        # Creates the synthetic dataset
+│   ├── bronze_layer.py         # Loads raw data as-is, with metadata
+│   ├── silver_layer.py         # Cleans and validates the data
+│   ├── gold_layer.py           # Builds business-ready summary tables
+│   ├── text_to_sql.py          # Converts a question into SQL
+│   ├── validator.py            # Dry-run validates SQL before execution
+│   └── self_correct.py         # Ties generation + validation into a retry loop
+├── dashboard/
+│   ├── app.py                  # Flask backend
+│   └── templates/
+│       └── index.html          # Question box, correction trace, and results
 └── README.md
 ```
 
-> This is the planned structure. The project will be developed gradually, one component at a time.
+---
+
+## About the Data
+
+The dataset is **synthetically generated** — it represents a fictional coffee shop with orders across three branches, eight menu items, and four payment methods. It's intentionally seeded with a small amount of realistic messiness (duplicate rows, missing payment method values) so the cleaning stage has something real to do.
+
+| Stage | Row Count | Notes |
+|---|---|---|
+| Raw | 205 | Includes 5 duplicate orders, 6 rows with missing payment method |
+| Cleaned (Silver) | 200 | Duplicates removed, missing values labeled `Unknown` |
+| Gold summaries | 3 tables | Revenue by item, by location, and by day |
 
 ---
 
-# 🖥️ Development Environment
+## Getting Started
 
-The project is being developed using:
+### Prerequisites
 
-- Windows
-- WSL (Windows Subsystem for Linux)
-- Python virtual environment
-- Ollama
-- Llama 3.2
+- Python 3.10+
+- [Ollama](https://ollama.com) installed and running locally
+- A pulled local model (this project uses `llama3.2`)
 
-The Python environment and required libraries have already been prepared.
+### Setup
 
----
+```bash
+# 1. Clone the repository
+git clone <your-repo-url>
+cd Cafe_Analytics-Agent
 
-# 📈 Data Flow
+# 2. Create and activate an environment
+conda create -n sql-agent-env python=3.10
+conda activate sql-agent-env
 
-The complete data movement will eventually look like this:
+# 3. Install dependencies
+pip install pandas duckdb flask requests
 
-```text
-Raw Cafe Data
-      ↓
-    Bronze
-      ↓
- Data Cleaning
-      ↓
-    Silver
-      ↓
- Data Transformation
-      ↓
-     Gold
-      ↓
-    DuckDB
-      ↓
-User Question
-      ↓
-Llama 3.2
-      ↓
-Generated SQL
-      ↓
-SQL Validation
-      ↓
-Self-Correction if Required
-      ↓
-SQL Execution
-      ↓
-Analytics Result
-      ↓
-User
+# 4. Make sure Ollama is running and the model is pulled
+ollama serve            # run in a separate terminal, keep it running
+ollama pull llama3.2
 ```
 
-At every stage, the project focuses on understanding:
+### Build the Data Pipeline
 
-- Where the data came from
-- What format the data has
-- Which component receives it
-- What processing occurs
-- Where the data is stored
-- How the next component receives it
-- How the final result reaches the user
+Run each stage in order, from the project root:
 
----
+```bash
+python scripts/generate_data.py   # creates the raw dataset
+python scripts/bronze_layer.py    # loads it as-is into the database
+python scripts/silver_layer.py    # cleans it
+python scripts/gold_layer.py      # builds the summary views
+```
 
-# 🎓 Learning Objectives
+### Launch the Dashboard
 
-By completing this project, the main goal is to understand:
+```bash
+python dashboard/app.py
+```
 
-### Data Engineering
+Then open **http://127.0.0.1:5000** in your browser and ask a question.
 
-- Raw data
-- Data cleaning
-- Data transformation
-- Data quality
-- Bronze/Silver/Gold architecture
+### Example Questions (Tested)
 
-### Databases
+These were run against the dashboard and confirmed to work:
 
-- Tables
-- SQL
-- Analytical queries
-- DuckDB
+1. *"Which item made the most total revenue?"*
+2. *"What is the average order value for each item, sorted from highest to lowest?"*
+3. *"How many total orders were placed for Latte?"*
+4. *"Which item sold the lowest quantity overall?"*
+5. *"Which location has the most orders?"*
+6. *"What is the total revenue for the Clifton Branch?"*
+7. *"Rank all locations by total revenue."*
+8. *"Show me the daily sales trend."*
+9. *"Which single day had the highest revenue?"*
+10. *"What was the total revenue in the last 30 days of the data?"*
 
-### LLM
-
-- Local LLM
-- Ollama
-- Llama 3.2
-- Natural-language questions
-- Text-to-SQL
-
-### Application Workflow
-
-- Frontend
-- Backend
-- Data processing
-- Database
-- Result generation
-
-### Reliability
-
-- SQL validation
-- Error handling
-- Self-correction
+> Local models occasionally need one or two correction attempts on more complex questions (like #10, which involves date filtering) — that's expected, and the dashboard's correction trace shows exactly how it self-corrects.
 
 ---
 
-# 🚧 Current Progress
+## How the Self-Correction Loop Works
 
-## Completed
+This is the core idea the project is built around:
 
-- [x] Project concept defined
-- [x] Beginner-friendly scope defined
-- [x] Python environment prepared
-- [x] Required libraries installed
-- [x] Ollama installed
-- [x] Llama 3.2 downloaded
-- [x] WSL development environment selected
-- [x] Medallion Architecture added
+1. The question and database schema are sent to the model, which generates a SQL query.
+2. The query is checked with an `EXPLAIN` dry-run — it's tested for validity without being executed against real data.
+3. If it's valid, it's run immediately and the result is returned.
+4. If it's invalid, the exact error message is sent back to the model along with its previous attempt, and it's asked to produce a corrected query.
+5. This repeats up to **3 times**. If no valid query is produced by then, the system reports failure transparently rather than returning an incorrect answer.
 
-## Next Steps
-
-- [ ] Create cafe dataset
-- [ ] Create Bronze layer
-- [ ] Create Silver layer
-- [ ] Create Gold layer
-- [ ] Connect Gold data with DuckDB
-- [ ] Connect Llama 3.2 with Python
-- [ ] Build Natural Language → SQL workflow
-- [ ] Add SQL validation
-- [ ] Add self-correction
-- [ ] Build simple backend
-- [ ] Build simple frontend
-- [ ] Test the complete workflow
+Every attempt — valid or not — is logged and shown on the dashboard, so the correction process itself is visible, not just the final result.
 
 ---
 
-# 📌 Development Approach
+## Background & Motivation
 
-This project will be developed **step-by-step**.
+This project is a simplified, practical companion to a university final-year research proposal on **self-correcting Text-to-SQL systems for food-delivery data analytics**. That larger project compares a fine-tuned small language model against a large closed model (GPT-4o) across accuracy, cost, and latency, using a Medallion data pipeline and the same generate → validate → correct loop demonstrated here — at a larger scale and with formal evaluation.
 
-The complete application will not be built at once.
-
-For each step:
-
-1. Understand what we are building
-2. Understand why it is required
-3. Understand what happens in the background
-4. Create the required folder/file
-5. Write the code for that step
-6. Run the code
-7. Verify the output
-8. Understand the result
-9. Move to the next step
-
-The main purpose is to understand the **system and data flow**, rather than simply copying code.
+This repository exists to prove out and internalize that workflow on a small, understandable dataset before building the full-scale version.
 
 ---
 
-# 🚀 Future Improvements
+## Possible Extensions
 
-After the basic workflow is working, the project can be expanded with:
-
-- More cafe datasets
-- More complex SQL queries
-- Multiple related tables
-- Better data-quality checks
-- More advanced validation
-- Query history
-- Analytics dashboard
-- Performance measurements
-- More advanced local models
-- Improved natural-language understanding
+- Swap the local model for a closed API model (e.g. GPT-4o) and compare accuracy, cost, and latency.
+- Add evaluation metrics: Execution Accuracy, Valid SQL Rate, Fix Rate, Average Attempts per question.
+- Expand the dataset to include riders/deliveries for a food-delivery use case.
+- Add authentication and multi-user support to the dashboard.
+- Containerize the app with Docker for easier deployment.
 
 ---
 
-## 📌 Project Status
+## License
 
-**Current Stage:** Environment & Architecture Setup
-
-**Project Name:** Cafe Analytics Agent
-
-**Main Architecture:** Medallion Architecture
-
-**Local LLM:** Llama 3.2
-
-**LLM Runtime:** Ollama
-
-**Development Environment:** Windows + WSL
-
-**Status:** 🚧 In Development
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for the full text. In short: you're free to use, copy, modify, and distribute this project, including for commercial purposes, as long as the original copyright notice is kept.
